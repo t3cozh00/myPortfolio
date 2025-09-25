@@ -4,16 +4,13 @@
 - **Tailwind CSS** — utility-first styling, responsive design, dark variants
 - **Vite（Vite Build Tool）** — fast dev server & build (if your project was bootstrapped with Vite)
 - **lucide-react** — SVG icon components
-- **Accessible HTML** — `aria-label`, `aria-expanded`, semantic nav
-
-> Acronyms used: **UI（User Interface）**
 
 ---
 
 ## Features Implemented
 
 - **Sectioned landing page**: _Home, About, Projects, Skills, Contact_  
-  In-page hash navigation for quick jumps（页内锚点导航）
+  In-page hash navigation for quick jumps
 - **Sticky top navigation**: always visible on scroll; opaque background
 - **Responsive menu**: desktop links + mobile panel; toggle via `useState`
 - **Icon links**: GitHub & LinkedIn with safe external link attributes (`target="_blank"`, `rel="noreferrer"`)
