@@ -1,100 +1,59 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, useScroll } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { ChevronUp } from "lucide-react";
 
-import HeroSection from "../components/portfolio/HeroSection";
-import AboutSection from "../components/portfolio/AboutSection";
-import SkillsSection from "../components/portfolio/SkillSection";
-import ProjectsSection from "../components/portfolio/ProjectsSection";
-import ContactSection from "../components/portfolio/ContactSection";
-import NavigationDots from "../components/portfolio/NavigationSection";
+import Hero from "@/components/portfolio/HeroSection";
+import About from "@/components/portfolio/AboutSection";
+import Skills from "@/components/portfolio/SkillSection";
+import Projects from "@/components/portfolio/ProjectsSection";
+import Contact from "@/components/portfolio/ContactSection";
+import Navigation from "@/components/portfolio/NavigationSection";
 
 export default function Portfolio() {
-  const [activeSection, setActiveSection] = useState("home");
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const { scrollY } = useScroll();
+  const { scrollYProgress } = useScroll();
+  const [showTop, setShowTop] = useState(false);
 
   // Show scroll to top button after scrolling down
   useEffect(() => {
-    const unsubscribe = scrollY.onChange((latest) => {
-      setShowScrollTop(latest > 500);
-    });
-    return () => unsubscribe();
-  }, [scrollY]);
-
-  // Update active section based on scroll position
-  useEffect(() => {
-    const sections = ["home", "about", "skills", "projects", "contact"];
-    const observers = sections.map((section) => {
-      const element = document.getElementById(section);
-      if (!element) return null;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(section);
-          }
-        },
-        { threshold: 0.6, rootMargin: "-10% 0px -10% 0px" }
-      );
-
-      observer.observe(element);
-      return observer;
-    });
-
-    return () => {
-      observers.forEach((observer) => observer?.disconnect());
-    };
+    const onScroll = () => setShowTop(window.scrollY > 600);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
-    <div className="bg-slate-50 min-h-screen">
-      {/* Navigation Dots */}
-      <NavigationDots
-        activeSection={activeSection}
-        onSectionClick={scrollToSection}
+    <div>
+      <Navigation />
+
+      {/* Progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-accent origin-left z-40"
+        style={{ scaleX: scrollYProgress }}
       />
 
-      {/* Scroll to Top Button */}
-      <motion.div
-        className="fixed bottom-8 right-8 z-50"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{
-          opacity: showScrollTop ? 1 : 0,
-          y: showScrollTop ? 0 : 20,
-        }}
-        transition={{ duration: 0.3 }}
-      >
-        <Button
-          onClick={scrollToTop}
-          size="icon"
-          className="bg-slate-900 hover:bg-slate-800 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-        >
-          <ChevronUp className="w-5 h-5" />
-        </Button>
-      </motion.div>
+      {/* Sections */}
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Contact />
 
-      {/* Page Sections */}
-      <HeroSection onScrollDown={() => scrollToSection("about")} />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ContactSection />
+      {/* Footer */}
+      <footer className="section pt-10">
+        <div className="flex flex-col gap-4 items-center text-center">
+          <div className="flex items-center gap-4"></div>
+          <p className="subtle">{new Date().getFullYear()}©Zoey</p>
+        </div>
+      </footer>
+
+      {/* Back to top */}
+      {showTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-6 right-6 btn btn-accent shadow-xl z-40"
+        >
+          <ChevronUp />
+        </button>
+      )}
     </div>
   );
 }
