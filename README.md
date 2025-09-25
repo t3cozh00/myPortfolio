@@ -1,69 +1,46 @@
-# React + TypeScript + Vite
+## Skills & Tech Used
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- **React (Hooks: `useState`)** — component structure, stateful UI
+- **Tailwind CSS** — utility-first styling, responsive design, dark variants
+- **Vite（Vite Build Tool）** — fast dev server & build (if your project was bootstrapped with Vite)
+- **lucide-react** — SVG icon components
+- **Accessible HTML** — `aria-label`, `aria-expanded`, semantic nav
 
-Currently, two official plugins are available:
+> Acronyms used: **UI（User Interface）**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Features Implemented
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Sectioned landing page**: _Home, About, Projects, Skills, Contact_  
+  In-page hash navigation for quick jumps（页内锚点导航）
+- **Sticky top navigation**: always visible on scroll; opaque background
+- **Responsive menu**: desktop links + mobile panel; toggle via `useState`
+- **Icon links**: GitHub & LinkedIn with safe external link attributes (`target="_blank"`, `rel="noreferrer"`)
+- **Smooth hover states & focus styles**: consistent link and button feedback
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## What I Practiced
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **SPA（Single-Page Application）**: logical section IDs + anchor linking
+- **Responsive layout**: Tailwind breakpoints (`md:`) for desktop vs. mobile
+- **State-driven UI**: mobile nav open/close with `useState`
+- **Accessibility**: ARIAAccessible Rich Internet Applications） attributes and keyboard-friendly controls
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Sections Added
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- `Home` — hero entry section
+- `About` — short bio & value proposition
+- `Projects` — highlighted work items
+- `Skills` — tech stack and tools
+- `Contact` — ways to reach me (socials, email)
+
+---
+
+## To Be Done
+
+- **Dark/Light Mode**: Tailwind `dark` class strategy; theme toggle button; respects system preference
+- **Theming**: Tailwind `dark:` variants, system fallback, and persistent user preference（`localStorage`）
